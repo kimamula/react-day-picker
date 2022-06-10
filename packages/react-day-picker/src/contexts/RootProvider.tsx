@@ -17,7 +17,7 @@ export type RootContext = DayPickerBase & {
 
 /** Provide the value for all the context providers. */
 export function RootProvider(props: RootContext): JSX.Element {
-  const { children, ...initialProps } = props;
+  const { children, disallowFocusOnDisabledDays, ...initialProps } = props;
 
   return (
     <DayPickerProvider initialProps={initialProps}>
@@ -26,7 +26,11 @@ export function RootProvider(props: RootContext): JSX.Element {
           <SelectMultipleProvider initialProps={initialProps}>
             <SelectRangeProvider initialProps={initialProps}>
               <ModifiersProvider>
-                <FocusProvider>{children}</FocusProvider>
+                <FocusProvider
+                  disallowFocusOnDisabledDays={disallowFocusOnDisabledDays}
+                >
+                  {children}
+                </FocusProvider>
               </ModifiersProvider>
             </SelectRangeProvider>
           </SelectMultipleProvider>
